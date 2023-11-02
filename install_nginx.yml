@@ -1,0 +1,19 @@
+- name: This playbook will install nginx
+  hosts: servers
+  become: yes
+  tasks:
+    - name: update apt cache
+      apt:
+       update_cache: yes
+    - name: Install nginx
+      apt:
+       name: nginx
+       state: latest
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+    - name: Deploy webpage
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
